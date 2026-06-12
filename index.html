@@ -595,6 +595,77 @@
     .final-cta__buttons{ flex-direction:row; justify-content:center; }
   }
 
+  /* ===================== CONTACT FORM ===================== */
+  .contact-form{
+    max-width: 36em;
+    margin: 6vh auto 0;
+    text-align:left;
+    display:flex;
+    flex-direction:column;
+    gap: 22px;
+  }
+  .contact-form__field{
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+  .contact-form__label{
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    opacity:.7;
+  }
+  .contact-form__label .req{
+    color: var(--greige);
+    margin-left: 6px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity:.8;
+  }
+  .contact-form__input,
+  .contact-form__textarea{
+    width:100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight:300;
+    letter-spacing: 0.03em;
+    transition: border-color .3s var(--ease), background .3s var(--ease);
+  }
+  .contact-form__input::placeholder,
+  .contact-form__textarea::placeholder{
+    color: rgba(255,255,255,0.35);
+  }
+  .contact-form__input:focus,
+  .contact-form__textarea:focus{
+    outline:none;
+    border-color: var(--greige);
+    background: rgba(255,255,255,0.07);
+  }
+  .contact-form__textarea{
+    resize: vertical;
+    min-height: 140px;
+  }
+  .contact-form__submit{
+    margin-top: 8px;
+    align-self:center;
+    width:100%;
+  }
+  @media (min-width:560px){
+    .contact-form__submit{ width:auto; min-width: 260px; }
+  }
+  .contact-form__note{
+    font-size: 0.78rem;
+    opacity:.5;
+    letter-spacing: 0.05em;
+    line-height: 2;
+    text-align:center;
+    margin-top: 4px;
+  }
+
   /* ===================== FIXED BOTTOM CTA ===================== */
   .fixed-cta{
     position: fixed;
@@ -1110,10 +1181,26 @@
     より詳しい資料をお送りします。<br>
     内見やご相談も、お気軽にお問い合わせください。
   </p>
-  <div class="final-cta__buttons reveal">
-    <a href="#contact" class="btn btn--primary cta-link" data-cta="final_document">詳細資料を受け取る</a>
-    <a href="#contact" class="btn btn--outline btn--light cta-link" data-cta="final_consult">この住まいについて相談する</a>
-  </div>
+  <form class="contact-form reveal" id="contactForm" method="POST">
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="contactName">お名前<span class="req">必須</span></label>
+      <input class="contact-form__input" type="text" id="contactName" name="name" placeholder="山田 太郎" required>
+    </div>
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="contactEmail">メールアドレス<span class="req">必須</span></label>
+      <input class="contact-form__input" type="email" id="contactEmail" name="email" placeholder="example@email.com" required>
+    </div>
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="contactTel">電話番号</label>
+      <input class="contact-form__input" type="tel" id="contactTel" name="tel" placeholder="090-1234-5678">
+    </div>
+    <div class="contact-form__field">
+      <label class="contact-form__label" for="contactMessage">お問い合わせ内容</label>
+      <textarea class="contact-form__textarea" id="contactMessage" name="message" placeholder="資料請求・内見・ご相談など、ご希望の内容をご記入ください"></textarea>
+    </div>
+    <button type="submit" class="btn btn--primary contact-form__submit">送信する</button>
+    <p class="contact-form__note">※送信ボタンは現在準備中です。フォーム送信機能は別途設定いたします。</p>
+  </form>
 </section>
 
 <footer class="footer">
@@ -1196,6 +1283,16 @@
       }
     });
   }, { passive: true });
+
+  /* ---------- Contact form (placeholder until Vercel form handler is wired up) ---------- */
+  var contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', { method: 'contact_form' });
+    }
+    alert('お問い合わせありがとうございます。\n（現在フォーム送信機能は準備中です。後日設定いたします。）');
+  });
 
   /* ---------- Floor plan lightbox ---------- */
   var trigger = document.getElementById('floorplanTrigger');
