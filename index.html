@@ -43,6 +43,8 @@
     font-weight: 300;
     letter-spacing: 0.02em;
     padding-bottom: 78px; /* space for fixed CTA */
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   img{ display:block; max-width:100%; height:auto; }
@@ -102,6 +104,40 @@
     letter-spacing: 0.04em;
     margin-bottom: 28px;
     text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+  }
+  .hero__price{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap: 12px 18px;
+    margin-bottom: 26px;
+  }
+  .hero__price-value{
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 6vw, 2.6rem);
+    font-weight:500;
+    letter-spacing: 0.06em;
+    white-space:nowrap;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+  }
+  .hero__price-divider{
+    width:1px;
+    height: 1.5em;
+    background: rgba(255,255,255,0.35);
+    display:none;
+  }
+  .hero__price-tag{
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    padding: 9px 18px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 999px;
+    white-space:nowrap;
+    opacity:.95;
+    backdrop-filter: blur(2px);
+  }
+  @media (min-width: 480px){
+    .hero__price-divider{ display:block; }
   }
   .hero__sub{
     font-size: clamp(0.95rem, 2.6vw, 1.15rem);
@@ -780,6 +816,11 @@
   <div class="hero__content">
     <p class="hero__eyebrow reveal is-visible">DIORE NISHI-SHINJUKU ／ TOP FLOOR RESIDENCE</p>
     <h1 class="hero__title reveal is-visible">東京の空を<br>暮らす。</h1>
+    <div class="hero__price reveal is-visible">
+      <span class="hero__price-value">1億8,000万円</span>
+      <span class="hero__price-divider" aria-hidden="true"></span>
+      <span class="hero__price-tag">15階最上階&nbsp;×&nbsp;角住戸</span>
+    </div>
     <p class="hero__sub reveal is-visible">15階建て最上階角住戸。<br>約98㎡のゆとりと、<br>時間とともに表情を変える眺望。</p>
     <a href="#contact" class="btn btn--light reveal is-visible cta-link" data-cta="hero">詳細資料を受け取る</a>
   </div>
@@ -1258,7 +1299,7 @@
       <input class="contact-form__input" type="email" id="contactEmail" name="email" placeholder="example@email.com" required>
     </div>
     <div class="contact-form__field">
-      <label class="contact-form__label" for="contactTel">電話番号</label>
+      <label class="contact-form__label" for="contactTel">電話番号（任意）</label>
       <input class="contact-form__input" type="tel" id="contactTel" name="tel" placeholder="090-1234-5678">
     </div>
     <div class="contact-form__field">
